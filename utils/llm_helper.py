@@ -14,7 +14,7 @@ def get_gemini_model(model_name: str):
     """
     return genai.GenerativeModel(model_name=model_name)
 
-def generate_text_from_prompt(
+def  generate_output_from_prompt(
     prompt: str,
     model_name: str = "gemini-2.0-flash",
     temperature: float = 0.3,
@@ -43,5 +43,5 @@ if __name__ == "__main__":
     # Testing the LLM 
     print("Testing Gemini LLM helper...")
     test_prompt = "What is Agentic AI?"
-    response = generate_text_from_prompt(test_prompt)
+    response =  generate_output_from_prompt(test_prompt)
     print(f"Response: {response}")

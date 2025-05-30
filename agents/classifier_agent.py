@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # LLM helper for classification
-from utils.llm_helper import generate_text_from_prompt
+from utils.llm_helper import  generate_output_from_prompt
 
 class ClassifierAgent:
     def __init__(self):
@@ -42,7 +42,7 @@ class ClassifierAgent:
         You must respond ONLY with a JSON object containing two keys: "format" and "intent".
         If you cannot confidently determine the intent, classify it as "Other".
 
-          Examples  
+        Examples  
 
         Example 1 (Email - RFQ):
         raw_input:
@@ -138,7 +138,7 @@ class ClassifierAgent:
         }}
         ```
 
-          End Examples  
+          End of Examples  
 
         Now, classify the following raw_input:
 
@@ -148,7 +148,7 @@ class ClassifierAgent:
         """
 
         # Call the LLM helper function
-        classification_raw = generate_text_from_prompt(
+        classification_raw =  generate_output_from_prompt(
             prompt,
             model_name=self.model_name,
             temperature=0.1, # Low temperature for classification accuracy
