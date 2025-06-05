@@ -11,8 +11,8 @@ Faker==37.3.0
 fastapi==0.115.12
 fastapi-cli==0.0.7
 google-ai-generativelanguage==0.6.15
-google-api-core==2.25.0rc1
-google-api-python-client==2.170.0
+google-api-core==2.25.0
+google-api-python-client==2.171.0
 google-auth==2.40.2
 google-auth-httplib2==0.2.0
 google-generativeai==0.8.5
