@@ -2,11 +2,10 @@
 
 ## Hello There\!
 
-Building the Flowbit AI Intake Agent System has been more than just a project for me; it's been an intensive deep dive into the fascinating world of AI-driven automation, multi-agent architectures, and robust backend/frontend development. From grappling with diverse data formats to orchestrating intelligent agents and crafting a truly intuitive user experience, this endeavor has been a profound learning curve.
+Building the MulitiFormat AI Intake Agent System has been more than just a project for me; it's been an intensive deep dive into the fascinating world of AI-driven automation, multi-agent architectures, and robust backend/frontend development. From grappling with diverse data formats to orchestrating intelligent agents and crafting a truly intuitive user experience, this endeavor has been a profound learning curve.
 
 I'm incredibly proud of what I've accomplished here, not just in terms of code, but in understanding how complex systems can be broken down, built up, and brought to life. This project showcases my dedication, problem-solving abilities, and a genuine passion for creating intelligent solutions that streamline real-world challenges.
 
------
 
 # 📚 Table of Contents
 
@@ -354,12 +353,12 @@ MultiFormat AI Intake Agent System/
 ├── LICENSE
 ├── main.py
 ├── requirements.txt
-├── tests/
-│   ├── test\_classifier\_agent.py
-│   ├── test\_email\_agent.py
-│   ├── test\_json\_agent.py
-│   └── test\_pdf\_agent.py
-└── .env
+└── tests/
+    ├── test\_classifier\_agent.py
+    ├── test\_email\_agent.py
+    ├── test\_json\_agent.py
+    └── test\_pdf\_agent.py
+
 ```
 
 
