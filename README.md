@@ -1,7 +1,5 @@
 # MultiFormat AI Intake Agent System: My Journey into Intelligent Automation
 
-### "Turning chaos into clarity, one intelligent agent at a time."
-
 -----
 
 ## Hello There\!
@@ -12,7 +10,30 @@ I'm incredibly proud of what I've accomplished here, not just in terms of code, 
 
 -----
 
-## 🎯 About This Project
+# 📚 Table of Contents
+
+1. [Hello There!](#hello-there)
+2. [About This Project](#about-this-project)
+   - [Features I'm Most Excited About](#features-im-most-excited-about)
+3. [The System Architecture](#the-system-architecture)
+4. [My Learning & Growth Journey](#my-learning--growth-journey-here)
+5. [The Toolkit I Used](#️-the-toolkit-i-used)
+6. [Getting Started](#-getting-started)
+7. [Usage & See It in Action!](#-usage--see-it-in-action)
+8. [Detailed Test Scenarios & Expected Outputs](#-detailed-test-scenarios--expected-outputs)
+   - [Scenario 1: Email RFQ Processing](#scenario-1-email-rfq-processing-success-path)
+   - [Scenario 2: JSON Invoice Processing](#scenario-2-json-invoice-processing-success-path)
+   - [Scenario 3: PDF Regulatory Policy](#scenario-3-pdf-regulatory-policy-success-path)
+   - [Scenario 4: Unclassified / Generic Input](#scenario-4-unclassified--generic-text-input-edge-case-handling)
+9. [Example Outputs & Demonstration](#-example-outputs--demonstration)
+10. [File Structure](#-file-structure)
+11. [References & Inspirations](#-references--inspirations-my-learning-path)
+12. [Why This Project Matters](#-why-this-project-matters-and-why-im-a-great-fit)
+13. [Let's Connect!](#-lets-connect)
+14. [License](#-license)
+
+
+## About This Project
 
 Imagine a constant deluge of incoming data – emails, documents, forms, reports – each with its own format and underlying intent. Manually sifting through this is time-consuming, error-prone, and stifles efficiency.
 
@@ -76,8 +97,8 @@ This project is a testament to my ability to quickly grasp new technologies, app
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/rprakashdass/flowbit-ai-intake-agent.git
-    cd flowbit-ai-intake-agent
+    git clone https://github.com/rprakashdass/multiformat-ai-intake-system
+    cd multiformat-ai-intake-system
     ```
 
 2.  **Launch with Docker Compose:**
@@ -269,6 +290,16 @@ Here are some visual demonstrations of the system's robust processing and detail
 
 #### 2\. JSON Invoice Processing & Transaction Logging
 
+<details>
+  <summary>Click to view full screenshot: Email RFQ Processing</summary>
+
+![image](https://github.com/user-attachments/assets/1c004111-b044-46d0-b26f-65271a95c2b8)
+![image](https://github.com/user-attachments/assets/c4deae7a-fb66-45d6-9e34-9a706990d398)
+![image](https://github.com/user-attachments/assets/b5a81233-6aa9-43e8-bd5b-2b97bf021bf9)
+![image](https://github.com/user-attachments/assets/b58b6884-e965-4578-9b63-b4c257ac0866)
+![image](https://github.com/user-attachments/assets/b05ec6de-0292-4672-b690-e239af6c878e)
+</details>
+
 *Brief description: An example of parsing a JSON invoice. The `JSONAgent` extracts precise transaction details, and the `ActionRouter` suggests a "Log Transaction" action, highlighting the automated data flow.*
 
 #### 3\. PDF Regulatory Policy Analysis
@@ -299,7 +330,7 @@ Here are some visual demonstrations of the system's robust processing and detail
 
 ## 📂 File Structure
 
-\`\`\`
+```
 MultiFormat AI Intake Agent System/
 ├── action\_router/
 │   └── action\_router.py
@@ -331,7 +362,7 @@ MultiFormat AI Intake Agent System/
 │   ├── test\_json\_agent.py
 │   └── test\_pdf\_agent.py
 └── .env
-\`\`\`
+```
 
 
 ## 🧠 References & Inspirations: My Learning Path
