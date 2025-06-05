@@ -19,7 +19,7 @@ I'm incredibly proud of what I've accomplished here, not just in terms of code, 
 4. [My Learning & Growth Journey](#my-learning--growth-journey-here)
 5. [The Toolkit I Used](#️-the-toolkit-i-used)
 6. [Getting Started](#-getting-started)
-7. [Usage & See It in Action!](#-usage--see-it-in-action)
+7. [Usage & Output](#-usage--see-it-in-action)
 8. [Detailed Test Scenarios & Expected Outputs](#-detailed-test-scenarios--expected-outputs)
    - [Scenario 1: Email RFQ Processing](#scenario-1-email-rfq-processing-success-path)
    - [Scenario 2: JSON Invoice Processing](#scenario-2-json-invoice-processing-success-path)
@@ -118,7 +118,7 @@ This project is a testament to my ability to quickly grasp new technologies, app
 
 -----
 
-## 💻 Usage & See It in Action\!
+## 💻 Usage & Output\!
 
 Open your browser and navigate to:
 
