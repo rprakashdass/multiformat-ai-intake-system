@@ -64,7 +64,7 @@ class Orchestrator:
         logger.info(f"[{conversation_id}] Classified: Format='{classified_format}', Intent='{classified_intent}'")
 
         agent_output: Optional[Dict[str, Any]] = None
-        agent_name = "N/A"
+        agent_name = "Agent: None"
 
         # 3. Route to specialized agent based on classified format
         if classified_format == "Email":
