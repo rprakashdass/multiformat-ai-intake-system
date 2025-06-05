@@ -30,7 +30,9 @@ The **Flowbit AI Intake Agent System** is my answer to this challenge. It's an i
 
 -----
 
-## The Brains Behind the Operation: How It's Built
+## The System Architecture
+
+![system_architecture](https://github.com/user-attachments/assets/635b6f42-3a21-4e01-891e-b1fc60feba3a)
 
 This system embodies principles of modularity, scalability, and transparent AI workflow. Building it gave me hands-on experience with a modern, agent-based architecture:
 
@@ -92,8 +94,6 @@ This project is a testament to my ability to quickly grasp new technologies, app
     ```bash
     docker ps
     ```
-
-    *(Confirm your `flowbit-ai-intake-agent` container is active.)*
 
 -----
 
@@ -265,11 +265,11 @@ Here are some visual demonstrations of the system's robust processing and detail
   ![image](https://github.com/user-attachments/assets/b792cc97-0ee3-4cc1-9144-d12d124abd77)
 </details>
 
-*(Brief description: This screenshot demonstrates an email being correctly classified, key details extracted by the `EmailAgent`, and a relevant action being proposed by the `ActionRouter`, such as CRM Lead Creation or Manual Review.)*
+*Brief description: This screenshot demonstrates an email being correctly classified, key details extracted by the `EmailAgent`, and a relevant action being proposed by the `ActionRouter`, such as CRM Lead Creation or Manual Review.*
 
 #### 2\. JSON Invoice Processing & Transaction Logging
 
-*(Brief description: An example of parsing a JSON invoice. The `JSONAgent` extracts precise transaction details, and the `ActionRouter` suggests a "Log Transaction" action, highlighting the automated data flow.)*
+*Brief description: An example of parsing a JSON invoice. The `JSONAgent` extracts precise transaction details, and the `ActionRouter` suggests a "Log Transaction" action, highlighting the automated data flow.*
 
 #### 3\. PDF Regulatory Policy Analysis
 
@@ -282,7 +282,7 @@ Here are some visual demonstrations of the system's robust processing and detail
 ![image](https://github.com/user-attachments/assets/ff2e4f9b-73cd-41e8-8b94-dbc5dca5aa93)
 </details>
 
-*(Brief description: This image illustrates the `PDFAgent` extracting content from a regulatory document, identifying compliance keywords (like GDPR, HIPAA), and the `ActionRouter` correctly flagging it for a "Compliance Review".)*
+*Brief description: This image illustrates the `PDFAgent` extracting content from a regulatory document, identifying compliance keywords (like GDPR, HIPAA), and the `ActionRouter` correctly flagging it for a "Compliance Review".*
 
 #### 4\. Handling Unclassified / Generic Inputs Gracefully
 
@@ -293,9 +293,45 @@ Here are some visual demonstrations of the system's robust processing and detail
 ![image](https://github.com/user-attachments/assets/fcba7725-d92f-4ec8-aefb-7cc426de133e)
 </details>
 
-*(Brief description: Witness how the system intelligently identifies inputs that don't fit specific categories. It flags them as "Other" and provides clear "Unclassified Input Details," explicitly indicating a need for human attention, showcasing robust error handling.)*
+*Brief description: Witness how the system intelligently identifies inputs that don't fit specific categories. It flags them as "Other" and provides clear "Unclassified Input Details," explicitly indicating a need for human attention, showcasing robust error handling.*
 
 -----
+
+## 📂 File Structure
+
+\`\`\`
+MultiFormat AI Intake Agent System/
+├── action\_router/
+│   └── action\_router.py
+├── agents/
+│   ├── **init**.py
+│   ├── classifier\_agent.py
+│   ├── classification\_prompt.txt
+│   ├── email\_agent.py
+│   ├── email\_agent\_prompt.txt
+│   ├── json\_agent.py
+│   ├── json\_agent\_prompt.txt
+│   ├── pdf\_agent.py
+│   ├── pdf\_agent\_prompt.txt
+│   └── pdf\_agent\_sample\_data/
+│       ├── sample\_invoice.pdf
+│       ├── sample\_policy.pdf
+│       └── sample\_report.pdf
+├── config.py
+├── docker-compose.yml
+├── Dockerfile
+├── frontend/
+│   └── index.html
+├── LICENSE
+├── main.py
+├── requirements.txt
+├── tests/
+│   ├── test\_classifier\_agent.py
+│   ├── test\_email\_agent.py
+│   ├── test\_json\_agent.py
+│   └── test\_pdf\_agent.py
+└── .env
+\`\`\`
 
 
 ## 🧠 References & Inspirations: My Learning Path
