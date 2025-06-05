@@ -334,10 +334,10 @@ I'm incredibly passionate about building intelligent systems that solve real-wor
 ## 🤝 Let's Connect\!
 
 I'd love to discuss this project further or any opportunities you might have.
-  * **Website:** [https://www.rprakashdass.in/]
-  * **GitHub:** [https://github.com/rprakashdass]
-  * **LinkedIn:** [https://linkedin.com/in/rprakashdass]
-  * **Email:** [rprakashdass@gmail.com]
+  * **Website:** https://www.rprakashdass.in/
+  * **GitHub:** https://github.com/rprakashdass
+  * **LinkedIn:** https://linkedin.com/in/rprakashdass
+  * **Email:** rprakashdass@gmail.com
 
 -----
 
