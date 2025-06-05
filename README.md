@@ -257,7 +257,6 @@ Here are some specific scenarios to demonstrate the system's capabilities. Use t
     ```
     Just some random text for testing purposes. It doesn't look like an email or a JSON or a PDF.
     ```
-    *(Or even just "f")*
   * **Expected Workflow:**
     1.  `ClassifierAgent`: Identifies `format: "Other"`, `intent: "Other"`.
     2.  No specialized agent (Email, JSON, PDF) is invoked.
@@ -358,7 +357,6 @@ MultiFormat AI Intake Agent System/
     ├── test\_email\_agent.py
     ├── test\_json\_agent.py
     └── test\_pdf\_agent.py
-
 ```
 
 
