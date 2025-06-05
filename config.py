@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     UPLOAD_DIR: str = "uploads"
     GOOGLE_API_KEY: str
 
-    REDIS_HOST: str = "localhost"
+    REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
 

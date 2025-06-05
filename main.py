@@ -118,7 +118,7 @@ app.mount("/static", StaticFiles(directory="frontend"), name="frontend")
 async def read_root():
     return RedirectResponse(url="/static/index.html")
 
-@app.post("/process_input/")
+@app.post("/process_input", include_in_schema=True)
 async def process_input_endpoint(
     file: UploadFile = File(None),
     raw_text_input: Optional[str] = Form(None),
@@ -172,4 +172,4 @@ async def process_input_endpoint(
         return JSONResponse(content=result)
     except Exception as e:
         logger.info(f"Orchestration Error: {e}")
-        raise HTTPException(status_code=500, detail=f"Internal server error during orchestration: {e}")
+        return JSONResponse(status_code=500, content={"error": "Internal server error during orchestration", "details": str(e)})
