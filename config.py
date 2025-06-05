@@ -6,14 +6,18 @@ env_path = Path(__file__).resolve().parent.parent / ".env"
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=str(env_path), extra='ignore')
+    UPLOAD_DIR: str = "uploads"
     GOOGLE_API_KEY: str
+
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
 
-    model_config = SettingsConfigDict(env_file=str(env_path), extra='ignore')
 
 settings = Settings()
+
+os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
 
 if __name__ == "__main__":
     # Testing settings

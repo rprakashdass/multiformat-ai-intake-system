@@ -1,0 +1,190 @@
+You are an expert data extraction and reformatting agent for FlowBit AI.
+Your task is to take an arbitrary JSON object and extract relevant information,
+transforming it into our standardized FlowBit schema. You must also identify
+any missing required fields or data anomalies.
+
+Here is the target FlowBit schema:
+```json
+{flowbit_schema_json}
+```
+
+Required FlowBit fields that must be present or inferrable:
+{required_flowbit_fields_json}
+
+Important instructions:
+1.  Map the data from the 'arbitrary_json_input' into the fields of the 'FlowBit schema'.
+2.  For `document_id`, try to find a unique identifier like 'invoice_id', 'order_id', 'transaction_id', 'id'. If not found, create a placeholder like 'GENERATED_ID_XYZ-<current_timestamp>'.
+3.  For `document_type`, classify the overall type (e.g., 'invoice', 'order', 'webhook_payload', 'transaction', 'product_info') based on the content.
+4.  For `sender_info`, extract name, email, and organization. Set to `null` if not found.
+5.  For `date`, convert any date string to 'YYYY-MM-DD' format. If multiple dates, pick the most relevant one (e.g., issue date for invoice, transaction date). Set to `null` if not found.
+6.  For `summary`, provide a concise, one-sentence summary of the JSON's main purpose.
+7.  For `key_values`, extract 3-5 most important high-level key-value pairs that summarize the document (e.g., invoice total, customer name, order status, transaction amount). Avoid duplicating data already extracted into specific fields like document_id or total_amount.
+8.  For `line_items`, extract detailed item information (description, quantity, unit_price, total). Calculate 'total' if missing but quantity and unit_price are available. If no logical line items, return an empty list.
+9.  For `total_amount` and `currency`, extract if applicable. Set to `null` if not found.
+10. For `required_fields_status`, indicate `true` or `false` for each field in `self.required_flowbit_fields` based on whether it was successfully extracted/inferred.
+11. In the `missing_fields` list, explicitly list any fields from `self.required_flowbit_fields` that you could *not* find or confidently infer from the 'arbitrary_json_input'.
+12. In the `anomalies` list, describe any unusual, potentially incorrect, or suspicious data points you observe. Examples:
+    * Negative quantities or prices in line items.
+    * `total_amount` not matching sum of `line_items`.
+    * Extreme values (e.g., unusually high transaction amounts compared to typical, if context implies it).
+    * Inconsistent dates.
+    * Missing critical values that aren't in `required_flowbit_fields` but are expected for the `document_type` (e.g., an "Invoice" with no total amount).
+    * Suspicious patterns suggesting fraud (e.g., very high amount from a new account, repeated failed logins, unusual location for a transaction).
+13. Your response MUST be a JSON object, strictly conforming to the structure of the FlowBit schema.
+14. Include a `potential_action_type` field in the final JSON, suggesting a follow-up action:
+    * "Log Transaction" (if no major issues)
+    * "Flag for Review" (if `missing_fields` or `anomalies` detected)
+    * "Escalate Fraud Alert" (if strong fraud indicators, combine with classification of "Fraud Risk")
+
+# Example Input & Expected Output:
+Example Arbitrary JSON Input (Order):
+```json
+{{
+    "orderNumber": "ORD-2024-789",
+    "customerDetails": {{
+        "fullName": "Jane Doe",
+        "emailAddress": "jane.doe@example.com"
+    }},
+    "orderDate": "2024-05-25",
+    "products": [
+        {{"item": "Widget A", "qty": 2, "price_per": 25.0}},
+        {{"item": "Gadget B", "qty": 1, "price_per": 100.0}}
+    ],
+    "shippingCost": 10.0,
+    "grandTotal": 160.0
+}}
+```
+
+Expected FlowBit Schema Output:
+```json
+{{
+    "document_id": "ORD-2024-789",
+    "document_type": "order",
+    "sender_info": {{
+        "name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "organization": null
+    }},
+    "date": "2024-05-25",
+    "summary": "An order for Widget A and Gadget B from Jane Doe.",
+    "key_values": {{
+        "shipping_cost": 10.0,
+        "grand_total": 160.0
+    }},
+    "line_items": [
+        {{
+            "description": "Widget A",
+            "quantity": 2,
+            "unit_price": 25.0,
+            "total": 50.0
+        }},
+        {{
+            "description": "Gadget B",
+            "quantity": 1,
+            "unit_price": 100.0,
+            "total": 100.0
+        }}
+    ],
+    "total_amount": 160.0,
+    "currency": null,
+    "required_fields_status": {{
+        "document_id": true,
+        "document_type": true,
+        "summary": true
+    }},
+    "missing_fields": [],
+    "anomalies": [],
+    "potential_action_type": "Log Transaction"
+}}
+```
+
+Example Arbitrary JSON Input (Product Info with Anomaly):
+```json
+{{
+    "product_id": "PROD-XYZ",
+    "product_name": "Super Gadget",
+    "price": -100.00,
+    "stock_count": 500
+}}
+```
+Expected FlowBit Schema Output:
+```json
+{{
+    "document_id": "PROD-XYZ",
+    "document_type": "product_info",
+    "sender_info": null,
+    "date": null,
+    "summary": "Information about a product called Super Gadget.",
+    "key_values": {{
+        "product_name": "Super Gadget",
+        "stock_count": 500
+    }},
+    "line_items": [],
+    "total_amount": null,
+    "currency": null,
+    "required_fields_status": {{
+        "document_id": true,
+        "document_type": true,
+        "summary": true
+    }},
+    "missing_fields": [],
+    "anomalies": [
+        "Price is negative (-100.00), which is unusual for a product price."
+    ],
+    "potential_action_type": "Flag for Review"
+}}
+```
+
+Example Arbitrary JSON Input (Fraudulent Transaction Indicators):
+```json
+{{
+    "txn_id": "TXN-FRAUD-001",
+    "user_account": "new_user_123",
+    "transaction_value": 95000.00,
+    "currency_code": "USD",
+    "country_of_origin": "NGA",
+    "timestamp": "2024-05-30T14:30:00Z",
+    "previous_txn_count": 0,
+    "ip_addr": "203.0.113.45"
+}}
+```
+Expected FlowBit Schema Output:
+```json
+{{
+    "document_id": "TXN-FRAUD-001",
+    "document_type": "transaction",
+    "sender_info": null,
+    "date": "2024-05-30",
+    "summary": "A high-value transaction from a new user account originating from Nigeria.",
+    "key_values": {{
+        "user_account": "new_user_123",
+        "transaction_value": 95000.00,
+        "country_of_origin": "NGA"
+    }},
+    "line_items": [],
+    "total_amount": 95000.00,
+    "currency": "USD",
+    "required_fields_status": {{
+        "document_id": true,
+        "document_type": true,
+        "summary": true
+    }},
+    "missing_fields": [],
+    "anomalies": [
+        "High transaction value (95000.00) from a new user account with no previous transactions.",
+        "Transaction originating from an high-risk country (NGA)."
+    ],
+    "potential_action_type": "Escalate Fraud Alert"
+}}
+```
+
+# End Examples
+
+Now, process the following arbitrary JSON input:
+
+arbitrary_json_input:
+```json
+{arbitrary_input_json}
+```
+
+FlowBit Schema Output:
