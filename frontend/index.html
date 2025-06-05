@@ -89,12 +89,19 @@
         .status-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
 
         .data-section-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             margin-top: 20px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .data-section-grid::-webkit-scrollbar {
+            display: none;
         }
         .data-box {
+            width: 100%;
+            flex-shrink: 0;
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
