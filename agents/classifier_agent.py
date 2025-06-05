@@ -113,3 +113,49 @@ class ClassifierAgent:
         except Exception as e:
             logger.error(f"Unexpected error during classification: {e}")
             return Format.OTHER.value, Intent.OTHER.value, {"error": str(e), "raw": classification_raw}
+
+def run_format_intent_tests(agent: ClassifierAgent):
+    test_cases = [
+        {
+            "title": "Email - Complaint",
+            "input": """Subject: Service Delay\n\nHello, I emailed last week about a transaction delay and have not received any response. Please escalate.""",
+        },
+        {
+            "title": "PDF-like - Invoice",
+            "input": """
+            Invoice Number: INV-2025-101
+            Date: 2025-06-01
+            Amount Due: $12,500
+            Services: Software Development and Consulting
+            """,
+        },
+        {
+            "title": "JSON Payload - Fraud Risk",
+            "input": json.dumps({
+                "event": "suspicious_login",
+                "user_id": "abc123",
+                "location": "Nigeria",
+                "timestamp": "2025-06-01T10:00:00Z"
+            }, indent=2),
+        },
+        {
+            "title": "Unstructured Text - Regulation",
+            "input": "The policy document discusses compliance with GDPR, HIPAA, and other regulatory frameworks.",
+        },
+        {
+            "title": "Empty Input",
+            "input": "",
+        }
+    ]
+
+    for case in test_cases:
+        logger.info(f" {case['title']} ")
+        fmt, intent, output = agent.classify_input(case["input"])
+        logger.info(f"Detected Format: {fmt}")
+        logger.info(f"Detected Intent: {intent}")
+        logger.info(f"Details: {json.dumps(output, indent=2)}")
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    classifier_agent = ClassifierAgent()
+    run_format_intent_tests(classifier_agent)
