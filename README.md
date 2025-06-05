@@ -1,7 +1,5 @@
 # MultiFormat AI Intake Agent System: My Journey into Intelligent Automation
 
------
-
 ## Hello There\!
 
 Building the Flowbit AI Intake Agent System has been more than just a project for me; it's been an intensive deep dive into the fascinating world of AI-driven automation, multi-agent architectures, and robust backend/frontend development. From grappling with diverse data formats to orchestrating intelligent agents and crafting a truly intuitive user experience, this endeavor has been a profound learning curve.
@@ -19,7 +17,7 @@ I'm incredibly proud of what I've accomplished here, not just in terms of code, 
 4. [My Learning & Growth Journey](#my-learning--growth-journey-here)
 5. [The Toolkit I Used](#️-the-toolkit-i-used)
 6. [Getting Started](#-getting-started)
-7. [Usage & Output](#-usage--see-it-in-action)
+7. [Usage & Output](#-usage--output)
 8. [Detailed Test Scenarios & Expected Outputs](#-detailed-test-scenarios--expected-outputs)
    - [Scenario 1: Email RFQ Processing](#scenario-1-email-rfq-processing-success-path)
    - [Scenario 2: JSON Invoice Processing](#scenario-2-json-invoice-processing-success-path)
