@@ -34,7 +34,7 @@ I'm incredibly proud of what I've accomplished here, not just in terms of code, 
 
 Imagine a constant deluge of incoming data – emails, documents, forms, reports – each with its own format and underlying intent. Manually sifting through this is time-consuming, error-prone, and stifles efficiency.
 
-The **Flowbit AI Intake Agent System** is my answer to this challenge. It's an intelligent pipeline designed to **automatically understand, process, and route diverse incoming data**. Whether it's an email asking for a quote, a JSON file with transaction details, or a PDF invoice, this system acts as a digital brain, classifying inputs, extracting key information, and preparing them for the right business action. It's about bringing structured order to unstructured chaos.
+The **Multiformat AI Intake Agent System** is my answer to this challenge. It's an intelligent pipeline designed to **automatically understand, process, and route diverse incoming data**. Whether it's an email asking for a quote, a JSON file with transaction details, or a PDF invoice, this system acts as a digital brain, classifying inputs, extracting key information, and preparing them for the right business action. It's about bringing structured order to unstructured chaos.
 
 ### Features I'm Most Excited About:
 
@@ -50,7 +50,7 @@ The **Flowbit AI Intake Agent System** is my answer to this challenge. It's an i
 
 ## The System Architecture
 
-![system_architecture](https://github.com/user-attachments/assets/635b6f42-3a21-4e01-891e-b1fc60feba3a)
+![system_architecture](https://github.com/user-attachments/assets/9dca685b-e486-40f9-8b2d-6dca83be3eca)
 
 This system embodies principles of modularity, scalability, and transparent AI workflow. Building it gave me hands-on experience with a modern, agent-based architecture:
 
@@ -408,3 +408,4 @@ I'd love to discuss this project further or any opportunities you might have.
 This project is open-source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
 
 -----
+
