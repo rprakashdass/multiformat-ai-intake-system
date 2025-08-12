@@ -1,67 +1,75 @@
-# Docker Implementation for FastAPI + Redis
+# Dockerized FastAPI + Redis Deployment
 
-This document explains the Docker setup for running a **FastAPI application** alongside **Redis** in a containerized environment, including networking, volumes, and service orchestration.
+A robust containerized architecture for running a **FastAPI** backend with **Redis** caching, designed for scalability, easy deployment, and persistent data storage.
 
----
-
-## 1. Overview
-
-We are running two main services:
-
-1. **FastAPI Application Container**
-
-   * Runs the Python FastAPI app with Uvicorn.
-   * Connects to Redis for data storage and caching.
-
-2. **Redis Container**
-
-   * Runs Redis version `7-alpine` (lightweight build).
-   * Persists its data in a Docker volume so it survives restarts.
-
-Both services run on the same **Docker network** so they can communicate via container names.
+This setup uses **Docker** and **Docker Compose** to manage services, networking, and volumes — ensuring reproducibility and isolation.
 
 ---
 
-## 2. Architecture Diagram
+## 1️⃣ High-Level Overview
+
+We run two main services inside Docker:
+
+### **1. FastAPI Application Container**
+
+* Runs the Python **FastAPI** backend with **Uvicorn**.
+* Uses environment variables from `.env`.
+* Connects to Redis for caching, session management, or quick data lookups.
+
+### **2. Redis Container**
+
+* Uses **Redis 7-alpine** (lightweight, fast).
+* Stores its data in a Docker volume so it survives container restarts.
+
+Both containers communicate via a **private Docker network** for security and isolation.
+
+---
+
+## 2️⃣ Architecture Diagram
 
 ```
-              ┌───────────────────────────────┐
-              │         Your Machine          │
-              │      (Host: localhost)        │
-              └───────────────────────────────┘
-                           │
-             Port 8000     │     Port 6379
-         ┌─────────────────┴─────────────────┐
-         │                                   │
-   ┌────────────────────┐              ┌──────────────────────┐
-   │   app container    │              │   redis container    │
-   │  (FastAPI + code)  │              │ (Redis 7 - Alpine)   │
-   │                    │              │                      │
-   │ Runs:              │              │ Listens on 6379      │
-   │ uvicorn main:app   │              │ Data stored in /data │
-   │ host=0.0.0.0:8000  │              │                      │
-   └─────────┬──────────┘              └─────────┬────────────┘
-             │                                      │
-             │  Internal Docker Network             │
-             └───────────── app_network ────────────┘
-                         (bridge driver)
-                               │
-                   DNS inside Docker:
-                   - `app` ↔ `redis`
-                               │
-                   Volumes (Persistent Data)
-                               │
-                      redis_data:/data
-        (stored on host, survives container restarts)
+
+                                            🌐 Browser / Client                                            
+                                                     │                                                    
+                                                     ▼                                                    
+                                    http://13.201.57.209:8000/static/index.html                            
+                                                     │                                                    
+                                                     ▼                                                    
+                                           AWS EC2 (Ubuntu Host)                                          
+                                                     │                                                    
+                                            ┌────────┴─────────┐                                         
+                                            │  Docker Engine   │                                         
+                                            └──────────────────┘                                         
+                                                     │                                                    
+                                       ┌──────────────────────────────┐                                     
+                                       │  Internal Docker Network     │  (bridge: app_network)             
+                                       └──────────────────────────────┘                                     
+                                         │                        │                                      
+                                         ▼                        ▼                                      
+                                ┌────────────────────┐   ┌──────────────────────┐                       
+                                │   app container    │   │   redis container    │                       
+                                │  (FastAPI + code)  │   │ (Redis 7 - Alpine)   │                       
+                                │ Runs:              │   │ Listens on 6379      │                       
+                                │ uvicorn main:app   │   │ Data stored in /data │                       
+                                │ host=0.0.0.0:8000  │   │ Persistent Volumes   │                       
+                                └─────────┬──────────┘   └─────────┬────────────┘                       
+                                          │                        │                                      
+                                          └──────────────┬─────────┘                                      
+                                                         │                                                
+                                                DNS inside Docker:                                        
+                                                - `app` ↔ `redis`                                         
+                                                         │                                                
+                                                Volumes (Persistent Data)                                 
+                                                         │                                                
+                                                 redis_data:/data                                         
+                                        (stored on host, survives container restarts)                                     
+
+
 ```
 
----
+## 3️⃣ Docker Components
 
-## 3. Docker Components
-
-### **3.1 Dockerfile (FastAPI app)**
-
-The `Dockerfile` builds an image for the FastAPI application.
+### **Dockerfile** (FastAPI app)
 
 ```dockerfile
 FROM python:3.11-slim-buster
@@ -83,14 +91,12 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 * Uses a lightweight Python 3.11 image.
 * Installs dependencies from `requirements.txt`.
 * Copies project files into `/app`.
-* Exposes port `8000` inside the container.
-* Runs the FastAPI app using Uvicorn.
+* Exposes port **8000** inside the container.
+* Runs the FastAPI app with Uvicorn.
 
 ---
 
-### **3.2 docker-compose.yml**
-
-Defines both the app and Redis services.
+### **docker-compose.yml**
 
 ```yaml
 services:
@@ -126,64 +132,54 @@ networks:
 
 **Key Points:**
 
-* **`app`**\*\* service\*\* is built from your local Dockerfile.
-* **`redis`**\*\* service\*\* uses the official Redis image (`7-alpine`).
-* Both share the same **`app_network`** so they can communicate.
+* `app` service is built from your local Dockerfile.
+* `redis` service uses the official Redis 7-alpine image.
+* Both share the same **app\_network** for communication.
 * `redis_data` volume stores Redis data persistently.
 * `depends_on` ensures Redis starts before the app.
 
 ---
 
-## 4. Networking
+## 4️⃣ Networking
 
-* **Network Type**: `bridge`
-* **Container DNS**: Inside the `app_network`, containers can reach each other by name:
+* **Network Type:** bridge
+* **Container DNS:** Inside `app_network`, containers can reach each other by name:
 
   * `redis:6379` → Redis container
   * `app:8000` → FastAPI container
-* **Host Access**:
+* **Host Access:**
 
-  * `localhost:8000` → FastAPI app
-  * `localhost:6379` → Redis server
-
----
-
-## 5. Persistent Data
-
-Redis data is stored in:
-
-```
-/data  (inside container)
-```
-
-This path is mapped to the Docker volume:
-
-```
-redis_data:/data
-```
-
-Which means:
-
-* Data survives container restarts.
-* Clearing the volume will reset the database.
+  * `http://13.201.57.209:8000` → FastAPI app
+  * `13.201.57.209:6379` → Redis server
 
 ---
 
-## 6. Running the Services
+## 5️⃣ Persistent Data
 
-### Build and Start
+Redis data is stored in `/data` inside the container, mapped to the Docker volume `redis_data:/data`.
+
+* **Benefits:**
+
+  * Data survives container restarts.
+  * Clearing the volume resets the database.
+
+---
+
+## 6️⃣ Running the Services
+
+**Build and Start:**
 
 ```bash
 docker-compose up --build
 ```
 
-### Stop
+**Stop:**
 
 ```bash
 docker-compose down
 ```
 
-### Stop and Remove Volumes (Clear Redis Data)
+**Stop and Remove Volumes (Clear Redis Data):**
 
 ```bash
 docker-compose down -v
@@ -191,10 +187,10 @@ docker-compose down -v
 
 ---
 
-## 7. Why This Setup Works Well
+## 7️⃣ Why This Setup Works Well
 
-* **Isolation**: Each service runs in its own container with its own dependencies.
-* **Port Mapping**: Only the needed ports are exposed to the host.
-* **Networking**: Containers talk over an internal, secure network.
-* **Persistence**: Redis keeps data even if its container restarts.
-* **Lightweight**: `7-alpine` image keeps Redis container small and fast.
+* **Isolation:** Each service runs in its own container with its own dependencies.
+* **Port Mapping:** Only required ports are exposed to the host.
+* **Networking:** Containers communicate over a secure internal network.
+* **Persistence:** Redis data survives restarts.
+* **Lightweight:** Redis 7-alpine keeps the image size small and fast.
