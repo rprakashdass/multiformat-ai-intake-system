@@ -24,17 +24,32 @@ I'm incredibly proud of what I've accomplished here, not just in terms of code, 
    - [Scenario 4: Unclassified / Generic Input](#scenario-4-unclassified--generic-text-input-edge-case-handling)
 9. [Example Outputs & Demonstration](#-example-outputs--demonstration)
 10. [File Structure](#-file-structure)
-11. [References & Inspirations](#-references--inspirations-my-learning-path)
-12. [Why This Project Matters](#-why-this-project-matters-and-why-im-a-great-fit)
-13. [Let's Connect!](#-lets-connect)
-14. [License](#-license)
+11. [Why This Project Matters](#-why-this-project-matters-and-why-im-a-great-fit)
+12. [Let's Connect!](#-lets-connect)
+13. [License](#-license)
 
 
 ## About This Project
 
-Imagine a constant deluge of incoming data – emails, documents, forms, reports – each with its own format and underlying intent. Manually sifting through this is time-consuming, error-prone, and stifles efficiency.
+This project is built as an **AI-powered Client Relationship Management (CRM) assistant** designed to intelligently process and respond to user queries.
 
-The **Multiformat AI Intake Agent System** is my answer to this challenge. It's an intelligent pipeline designed to **automatically understand, process, and route diverse incoming data**. Whether it's an email asking for a quote, a JSON file with transaction details, or a PDF invoice, this system acts as a digital brain, classifying inputs, extracting key information, and preparing them for the right business action. It's about bringing structured order to unstructured chaos.
+The system focuses on **automating query understanding** for various client interactions, including:
+
+* **RFQs (Request for Quotation)**
+* **Invoices**
+* **Refund requests**
+* **General service requests**
+
+When a user submits a query, the workflow is as follows:
+
+1. **Natural Language Parsing** — The query is processed by a machine learning model that identifies its **intent** and **data format**.
+2. **Intent Classification** — The system determines the type of request (e.g., RFQ, invoice inquiry, refund request).
+3. **Agent Routing** — Based on the identified intent, the request is routed to the appropriate **specialized agent** for deeper understanding and accurate handling.
+4. **Automated Response or Escalation** — The agent either generates an automated response or forwards it to the correct department for resolution.
+
+This architecture ensures that clients receive **faster resolutions**, while organizations benefit from **streamlined workflows** and **reduced manual intervention**.
+
+-----
 
 ### Features I'm Most Excited About:
 
@@ -81,11 +96,24 @@ This project is a testament to my ability to quickly grasp new technologies, app
 
 ## 🛠️ The Toolkit I Used
 
-  * **Backend:** Python 3.13, FastAPI
-  * **Containerization:** Docker, Docker Compose
-  * **Frontend:** HTML, CSS, JavaScript
-  * **Dependencies:** Managed via `requirements.txt`
-  * **Testing:** Pytest
+* **Backend**: Python 3.13, FastAPI
+* **Containerization**: Docker, Docker Compose
+* **Frontend**: HTML, CSS, JavaScript
+* **Dependencies**: Managed via `requirements.txt`
+* **Testing**: Pytest
+
+**📦 Python Packages Used**:
+
+* **FastAPI** — High-performance web framework for building APIs
+* **Uvicorn** — ASGI server for running FastAPI applications
+* **Redis-py** — Python client for Redis integration
+* **logging** — Python’s built-in logging system
+* **google-genai** — Google Generative AI SDK for Gemini integration
+* **python-dotenv** — Environment variable management
+* **Requests** — HTTP requests handling
+* **Pytest** — Testing framework
+* **Typing Extensions** — Type hint support for modern Python features
+* **Pydantic** — Data validation and settings management
 
 -----
 
@@ -124,8 +152,6 @@ http://localhost:8000/
 ```
 
 You'll be greeted by the intuitive web UI.
-
-![Index Page UI](assets/screenshots/index_page_ui.png)
 
   * **Upload:** Choose a sample `.eml`, `.json`, `.txt`, or `.pdf` file.
   * **Paste:** Or paste any raw text, email body, or JSON string.
@@ -359,25 +385,6 @@ MultiFormat AI Intake Agent System/
     └── test\_pdf\_agent.py
 ```
 
-
-## 🧠 References & Inspirations: My Learning Path
-
-This project was built upon insights from various architectural patterns and AI concepts. Here are some of the resources that significantly influenced my learning and design choices:
-
-* **Message Channels & Event-Driven Architecture:** (Relevant to how agents might communicate or data flows)
-    * [Unlock the Power of Event-Driven Architecture: How Netflix & Uber Handle Billions of Events Daily](https://www.youtube.com/watch?v=hrvx8Nv9eQA)  
-      *(Understand the principles and real-world applications of event-driven systems.)*
-* **AI Agents & Multi-Agent Systems:** (Foundational to the core design)
-    * [Build a Multi-Agent System with CrewAI | Agentic AI Tutorial](https://www.youtube.com/watch?v=qsrl2DHYi1Y)  
-      *(Learn how to create and orchestrate collaborative AI agents.)*
-* **Workflow Orchestration:** (Crucial for the `FlowCoordinator` and `ActionRouter` logic)
-    * [Orchestration or Choreography?](https://www.youtube.com/watch?v=RQMRXAGxLiw)  
-      *(Explore when to use orchestration vs. choreography in complex systems.)*
-* **AI for Test Case & Prompt Generation:** (Highlights thinking beyond just the core logic)
-    * [AI Test Case Generator: Transform Jira User Stories into Automated Test Cases](https://www.youtube.com/watch?v=YX26b0MB4lA) *(Focus on how AI can assist in generating test data or scenarios.)*
-
------
-
 ## 🌟 Why This Project Matters (And Why I'm a Great Fit\!)
 
 This Flowbit AI Intake Agent System isn't just a collection of technologies; it's a testament to my ability to:
@@ -408,4 +415,5 @@ I'd love to discuss this project further or any opportunities you might have.
 This project is open-source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
 
 -----
+
 
