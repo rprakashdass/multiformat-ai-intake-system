@@ -22,7 +22,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 
 app = FastAPI(
-    title="Flowbit-AI Intake Agent System",
+    title="Multi-Format AI Intake Agent System",
     description="A multi-agent AI system for contextual decisioning and chained actions based on multi-format input."
 )
 
